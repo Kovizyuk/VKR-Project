@@ -3,16 +3,16 @@
  *
  * ------------------------------------------------------------------- */
 
-(function($) {
+(function ($) {
 
     "use strict";
-    
+
     var cfg = {
-        scrollDuration : 800, // smoothscroll duration
-        mailChimpURL   : 'https://facebook.us8.list-manage.com/subscribe/post?u=cdb7b577e41181934ed6a6a44&amp;id=e6957d85dc'   // mailchimp url
+        scrollDuration: 800, // smoothscroll duration
+        mailChimpURL: 'https://facebook.us8.list-manage.com/subscribe/post?u=cdb7b577e41181934ed6a6a44&amp;id=e6957d85dc'   // mailchimp url
     },
 
-    $WIN = $(window);
+        $WIN = $(window);
 
     // Add the User Agent to the <html>
     // will be used for IE10 detection (Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0))
@@ -26,33 +26,33 @@
     }
 
 
-   /* Preloader
-    * -------------------------------------------------- */
-    var clPreloader = function() {
-        
+    /* Preloader
+     * -------------------------------------------------- */
+    var clPreloader = function () {
+
         $("html").addClass('cl-preload');
 
-        $WIN.on('load', function() {
+        $WIN.on('load', function () {
 
             //force page scroll position to top at page refresh
             $('html, body').animate({ scrollTop: 0 }, 'normal');
 
             // will first fade out the loading animation 
-            $("#loader").fadeOut("slow", function() {
+            $("#loader").fadeOut("slow", function () {
                 // will fade out the whole DIV that covers the website.
                 $("#preloader").delay(300).fadeOut("slow");
-            }); 
-            
+            });
+
             // for hero content animations 
             $("html").removeClass('cl-preload');
             $("html").addClass('cl-loaded');
-        
+
         });
     };
 
 
-   /* Move header
-    * -------------------------------------------------- */
+    /* Move header
+     * -------------------------------------------------- */
     var clMoveHeader = function () {
 
         var hero = $('.page-hero'),
@@ -94,13 +94,13 @@
 
 
     /* Mobile Menu
-     * ---------------------------------------------------- */ 
-    var clMobileMenu = function() {
+     * ---------------------------------------------------- */
+    var clMobileMenu = function () {
 
         var toggleButton = $('.header-menu-toggle'),
             nav = $('.header-nav-wrap');
 
-        toggleButton.on('click', function(event){
+        toggleButton.on('click', function (event) {
             event.preventDefault();
 
             toggleButton.toggleClass('is-clicked');
@@ -109,16 +109,16 @@
 
         if (toggleButton.is(':visible')) nav.addClass('mobile');
 
-        $WIN.on('resize', function() {
+        $WIN.on('resize', function () {
             if (toggleButton.is(':visible')) nav.addClass('mobile');
             else nav.removeClass('mobile');
         });
 
-        nav.find('a').on("click", function() {
+        nav.find('a').on("click", function () {
 
             if (nav.hasClass('mobile')) {
                 toggleButton.toggleClass('is-clicked');
-                nav.slideToggle(); 
+                nav.slideToggle();
             }
         });
 
@@ -127,14 +127,14 @@
 
     /* Highlight the current section in the navigation bar
      * ------------------------------------------------------ */
-    var clWaypoints = function() {
+    var clWaypoints = function () {
 
         var sections = $(".target-section"),
             navigation_links = $(".header-nav li a");
 
-        sections.waypoint( {
+        sections.waypoint({
 
-            handler: function(direction) {
+            handler: function (direction) {
 
                 var active_section;
 
@@ -152,35 +152,35 @@
             offset: '25%'
 
         });
-        
+
     };
 
 
-   /* photoswipe
-    * ----------------------------------------------------- */
-    var clPhotoswipe = function() {
+    /* photoswipe
+     * ----------------------------------------------------- */
+    var clPhotoswipe = function () {
         var items = [],
             $pswp = $('.pswp')[0],
             $folioItems = $('.item-folio');
 
         // get items
-        $folioItems.each( function(i) {
+        $folioItems.each(function (i) {
 
             var $folio = $(this),
-                $thumbLink =  $folio.find('.thumb-link'),
+                $thumbLink = $folio.find('.thumb-link'),
                 $title = $folio.find('.item-folio__title'),
                 $caption = $folio.find('.item-folio__caption'),
                 $titleText = '<h4>' + $.trim($title.html()) + '</h4>',
                 $captionText = $.trim($caption.html()),
                 $href = $thumbLink.attr('href'),
                 $size = $thumbLink.data('size').split('x'),
-                $width  = $size[0],
+                $width = $size[0],
                 $height = $size[1];
-        
+
             var item = {
-                src  : $href,
-                w    : $width,
-                h    : $height
+                src: $href,
+                w: $width,
+                h: $height
             }
 
             if ($caption.length > 0) {
@@ -191,9 +191,9 @@
         });
 
         // bind click event
-        $folioItems.each(function(i) {
+        $folioItems.each(function (i) {
 
-            $(this).on('click', function(e) {
+            $(this).on('click', function (e) {
                 e.preventDefault();
                 var options = {
                     index: i,
@@ -209,48 +209,96 @@
     };
 
 
-   /* Stat Counter
-    * ------------------------------------------------------ */
-    var clStatCount = function() {
-        
-        var statSection = $(".s-stats"),
-            stats = $(".item-stats__count");
+    /* Stat Counter
+     * ------------------------------------------------------ */
+    var clStatCount = function () {
 
-        statSection.waypoint({
+        // Set the date we're counting down to
+        var countDownDate = new Date("June 15, 2023 10:37:25").getTime();
 
-            handler: function(direction) {
 
-                if (direction === "down") {
+        // Update the count down every 1 second
+        var x = setInterval(function () {
 
-                    stats.each(function () {
-                        var $this = $(this);
+            // Get today's date and time
+            var now = new Date().getTime();
 
-                        $({ Counter: 0 }).animate({ Counter: $this.text() }, {
-                            duration: 4000,
-                            easing: 'swing',
-                            step: function (curValue) {
-                                $this.text(Math.ceil(curValue));
-                            }
-                        });
-                    });
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
 
-                } 
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                // trigger once only
-                this.destroy();
+            // Display the result in the element with id="demo"
+            document.getElementById("stats-count").innerHTML = 
+            `
+            <div class="col-block item-stats ">
+                <div class="item-stats__count">${days}</div>
+                <h5>дней</h5>
+            </div>
+            <div class="col-block item-stats ">
+                <div class="item-stats__count">${hours}</div>
+                <h5>часов</h5>
+            </div>
+            <div class="col-block item-stats ">
+                <div class="item-stats__count">${minutes}</div>
+                <h5>минут</h5>
+            </div>
+            <div class="col-block item-stats ">
+                <div class="item-stats__count">${seconds}</div>
+                <h5>секунд</h5>
+            </div>
+            `
 
-            },
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("stats-count").innerHTML = "EXPIRED";
+            }
+        }, 1000);
 
-            offset: "90%"
 
-        });
+        // var statSection = $(".s-stats"),
+        //     stats = $(".item-stats__count");
+
+        // statSection.waypoint({
+
+        //     handler: function(direction) {
+
+        //         if (direction === "down") {
+
+        //             stats.each(function () {
+        //                 var $this = $(this);
+
+        //                 $({ Counter: 0 }).animate({ Counter: $this.text() }, {
+        //                     duration: 4000,
+        //                     easing: 'swing',
+        //                     step: function (curValue) {
+        //                         $this.text(Math.ceil(curValue));
+        //                     }
+        //                 });
+        //             });
+
+        //         } 
+
+        //         // trigger once only
+        //         this.destroy();
+
+        //     },
+
+        //     offset: "90%"
+
+        // });
     };
 
 
     /* slick slider
      * ------------------------------------------------------ */
-    var clSlickSlider = function() {
-        
+    var clSlickSlider = function () {
+
         $('.testimonials__slider').slick({
             arrows: false,
             dots: true,
@@ -272,16 +320,16 @@
     };
 
 
-   /* Smooth Scrolling
-    * ------------------------------------------------------ */
-    var clSmoothScroll = function() {
-        
+    /* Smooth Scrolling
+     * ------------------------------------------------------ */
+    var clSmoothScroll = function () {
+
         $('.smoothscroll').on('click', function (e) {
             var target = this.hash,
-            $target    = $(target);
-            
-                e.preventDefault();
-                e.stopPropagation();
+                $target = $(target);
+
+            e.preventDefault();
+            e.stopPropagation();
 
             $('html, body').stop().animate({
                 'scrollTop': $target.offset().top
@@ -299,29 +347,29 @@
     };
 
 
-   /* Placeholder Plugin Settings
-    * ------------------------------------------------------ */
-    var clPlaceholder = function() {
-        $('input, textarea, select').placeholder();  
+    /* Placeholder Plugin Settings
+     * ------------------------------------------------------ */
+    var clPlaceholder = function () {
+        $('input, textarea, select').placeholder();
     };
 
 
-   /* Alert Boxes
-    * ------------------------------------------------------ */
-    var clAlertBoxes = function() {
+    /* Alert Boxes
+     * ------------------------------------------------------ */
+    var clAlertBoxes = function () {
 
-        $('.alert-box').on('click', '.alert-box__close', function() {
+        $('.alert-box').on('click', '.alert-box__close', function () {
             $(this).parent().fadeOut(500);
-        }); 
+        });
 
     };
 
 
-   /* Animate On Scroll
-    * ------------------------------------------------------ */
-    var clAOS = function() {
-        
-        AOS.init( {
+    /* Animate On Scroll
+     * ------------------------------------------------------ */
+    var clAOS = function () {
+
+        AOS.init({
             offset: 200,
             duration: 600,
             easing: 'ease-in-sine',
@@ -333,10 +381,10 @@
     };
 
 
-   /* AjaxChimp
-    * ------------------------------------------------------ */
-    var clAjaxChimp = function() {
-        
+    /* AjaxChimp
+     * ------------------------------------------------------ */
+    var clAjaxChimp = function () {
+
         $('#mc-form').ajaxChimp({
             language: 'es',
             url: cfg.mailChimpURL
@@ -361,13 +409,13 @@
             3: '<i class="fas fa-exclamation-circle"></i> E-mail address is not valid.',
             4: '<i class="fas fa-exclamation-circle"></i> E-mail address is not valid.',
             5: '<i class="fas fa-exclamation-circle"></i> E-mail address is not valid.'
-        } 
+        }
 
     };
 
 
-   /* Initialize
-    * ------------------------------------------------------ */
+    /* Initialize
+     * ------------------------------------------------------ */
     (function clInit() {
 
         clPreloader();
@@ -383,10 +431,11 @@
         clAOS();
         clAjaxChimp();
 
-        $WIN.on('resize', function() {
+
+        $WIN.on('resize', function () {
             clMoveHeader();
         });
 
     })();
-        
+
 })(jQuery);
