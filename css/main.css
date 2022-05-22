@@ -3390,7 +3390,8 @@ html.no-csstransitions .home-content__main {
 .stats-block {
   display: flex;
   justify-content: center;
-  gap: 100px;
+  gap: 50px;
+  margin: auto;
 }
 
 .stats-block-title{
