@@ -1839,7 +1839,7 @@ input::-moz-focus-inner {
  * responsive:
  * header
  * ------------------------------------------------------------------- */
-@media only screen and (max-width:800px) {
+@media only screen and (max-width:1024px) {
   .s-header {
     top: 0;
   }
@@ -1936,7 +1936,7 @@ input::-moz-focus-inner {
 /* -------------------------------------------------------------------
  * make sure the menu is visible on larger screens
  * ------------------------------------------------------------------- */
-@media only screen and (min-width:801px) {
+@media only screen and (min-width:1024px) {
   .header-nav-wrap {
     display: block !important;
   }
@@ -2135,7 +2135,7 @@ input::-moz-focus-inner {
   font-family: "Montserrat", sans-serif;
   margin: 0;
   position: absolute;
-  top: 6rem;
+  top: 10rem;
   right: 6.2rem;
   z-index: 500;
 }
@@ -2329,6 +2329,7 @@ html.no-csstransitions .home-content__main {
 
   .home-content__main {
     padding-right: 6rem;
+    padding-top: 20rem;
   }
 
   .home-content__button,
